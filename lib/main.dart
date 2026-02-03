@@ -20,7 +20,7 @@ void main() {
   runApp(
     MaterialApp(
       title: 'Oriz - Gestão Financeira',
-      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.deepPurple),
+      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.red),
       home: HomeScreen(controller: controller),
     ),
   );

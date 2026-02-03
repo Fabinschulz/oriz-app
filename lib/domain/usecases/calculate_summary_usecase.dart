@@ -1,4 +1,4 @@
-import '../entities/transaction_entity.dart';
+import '../entities/transaction.dart';
 
 class TransactionSummary {
   final double totalIncome;
@@ -13,7 +13,7 @@ class TransactionSummary {
 }
 
 class CalculateSummaryUseCase {
-  TransactionSummary call(List<TransactionEntity> transactions) {
+  TransactionSummary call(List<Transaction> transactions) {
     double income = 0;
     double expense = 0;
 

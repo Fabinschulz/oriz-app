@@ -1,4 +1,4 @@
-import '../entities/transaction_entity.dart';
+import '../entities/transaction.dart';
 import '../enum/transaction_category.dart';
 
 class CategoryTotal {
@@ -9,7 +9,7 @@ class CategoryTotal {
 }
 
 class GetCategoryTotalsUseCase {
-  List<CategoryTotal> call(List<TransactionEntity> transactions) {
+  List<CategoryTotal> call(List<Transaction> transactions) {
     final Map<TransactionCategory, double> totals = {};
 
     for (var t in transactions) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:oriz_app/domain/Interface/transaction_repository.dart';
-import 'package:oriz_app/domain/entities/transaction_entity.dart';
+import 'package:oriz_app/domain/contracts/transaction_repository.dart';
+import 'package:oriz_app/domain/entities/transaction.dart';
 import 'package:oriz_app/domain/usecases/calculate_summary_usecase.dart';
 import 'package:oriz_app/domain/usecases/get_category_totals_usecase.dart';
 
@@ -15,7 +15,7 @@ class TransactionController extends ChangeNotifier {
     this._getCategoryTotals,
   );
 
-  List<TransactionEntity> transactions = [];
+  List<Transaction> transactions = [];
   TransactionSummary? summary;
   List<CategoryTotal> categoryTotals = [];
   bool isLoading = false;
@@ -33,7 +33,7 @@ class TransactionController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addTransaction(TransactionEntity transaction) async {
+  Future<void> addTransaction(Transaction transaction) async {
     await _repository.saveTransaction(transaction);
     await loadDashboardData();
   }
