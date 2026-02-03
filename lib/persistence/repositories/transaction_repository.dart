@@ -2,55 +2,48 @@ import 'package:oriz_app/domain/contracts/transaction_repository.dart';
 import 'package:oriz_app/domain/entities/transaction.dart';
 import 'package:oriz_app/domain/enum/transaction_category.dart';
 import 'package:oriz_app/domain/enum/transaction_type.dart';
+import 'package:oriz_app/persistence/database/db_config.dart';
+import 'package:sqflite/sqflite.dart' as sqflite;
 
-final List<Transaction> _mockDatabase = [
-  Transaction(
-    id: '1',
-    description: 'Salário Mensal',
-    amount: 5000.0,
-    date: DateTime.now(),
-    type: TransactionType.income,
-    category: TransactionCategory.salario,
-  ),
-  Transaction(
-    id: '2',
-    description: 'Supermercado Mensal',
-    amount: 800.0,
-    date: DateTime.now(),
-    type: TransactionType.expense,
-    category: TransactionCategory.mercado,
-  ),
-  Transaction(
-    id: '3',
-    description: 'Academia',
-    amount: 150.0,
-    date: DateTime.now(),
-    type: TransactionType.expense,
-    category: TransactionCategory.academia,
-  ),
-];
-
-class MockTransactionRepository implements ITransactionRepository {
-  @override
-  Future<List<Transaction>> getTransactions() async {
-    return _mockDatabase;
-  }
+class SqfliteTransactionRepository implements ITransactionRepository {
+  final _dbHelper = DatabaseConfig.instance;
 
   @override
   Future<void> saveTransaction(Transaction transaction) async {
-    _mockDatabase.add(transaction);
+    final db = await _dbHelper.database;
+    await db.insert('transactions', {
+      'id': transaction.id,
+      'description': transaction.description,
+      'amount': transaction.amount,
+      'date': transaction.date.toIso8601String(),
+      'type': transaction.type.name,
+      'category': transaction.category.name,
+    }, conflictAlgorithm: sqflite.ConflictAlgorithm.replace);
+  }
+
+  @override
+  Future<List<Transaction>> getTransactions() async {
+    final db = await _dbHelper.database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'transactions',
+      orderBy: 'date DESC',
+    );
+
+    return maps.map((map) => _fromMap(map)).toList();
   }
 
   @override
   Future<void> deleteTransaction(String id) async {
-    _mockDatabase.removeWhere((t) => t.id == id);
+    final db = await _dbHelper.database;
+    await db.delete('transactions', where: 'id = ?', whereArgs: [id]);
   }
 
   @override
   Future<List<Transaction>> getTransactionsByMonth(DateTime month) async {
-    return _mockDatabase
-        .where((t) => t.date.month == month.month && t.date.year == month.year)
-        .toList();
+    final firstDay = DateTime(month.year, month.month, 1);
+    final lastDay = DateTime(month.year, month.month + 1, 0, 23, 59, 59);
+
+    return getTransactionsByPeriod(firstDay, lastDay);
   }
 
   @override
@@ -58,8 +51,24 @@ class MockTransactionRepository implements ITransactionRepository {
     DateTime start,
     DateTime end,
   ) async {
-    return _mockDatabase
-        .where((t) => t.date.isAfter(start) && t.date.isBefore(end))
-        .toList();
+    final db = await _dbHelper.database;
+    final maps = await db.query(
+      'transactions',
+      where: 'date BETWEEN ? AND ?',
+      whereArgs: [start.toIso8601String(), end.toIso8601String()],
+    );
+
+    return maps.map((map) => _fromMap(map)).toList();
+  }
+
+  Transaction _fromMap(Map<String, dynamic> map) {
+    return Transaction(
+      id: map['id'] as String,
+      description: map['description'] as String,
+      amount: map['amount'] as double,
+      date: DateTime.parse(map['date'] as String),
+      type: TransactionType.values.byName(map['type'] as String),
+      category: TransactionCategory.values.byName(map['category'] as String),
+    );
   }
 }

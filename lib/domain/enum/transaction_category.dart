@@ -9,4 +9,13 @@ enum TransactionCategory {
   academia,
   outros,
   salario,
+  farmacia,
+  restaurante,
+  transportePublico,
+  aluguel,
+  parque,
+  cafe,
+  viagem,
+  presente,
+  petShop,
 }

@@ -1,8 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:oriz_app/domain/entities/transaction.dart';
-import 'package:oriz_app/domain/usecases/get_category_totals_usecase.dart';
+import 'package:oriz_app/core/extensions/transaction_category_extension.dart';
+import 'package:oriz_app/domain/entities/category_total.dart';
 
 class CategoryPieChart extends StatefulWidget {
   final List<CategoryTotal> categoryTotals;
@@ -90,8 +90,9 @@ class _CategoryPieChartState extends State<CategoryPieChart> {
       return PieChartSectionData(
         color: data.category.color,
         value: data.totalAmount,
-        title: '${percentage.toStringAsFixed(1)}%',
+        title: '${percentage.toStringAsFixed(0)}%',
         radius: radius,
+        showTitle: percentage > 5,
         titleStyle: TextStyle(
           fontSize: fontSize,
           fontWeight: FontWeight.bold,

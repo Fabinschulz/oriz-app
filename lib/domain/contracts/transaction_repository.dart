@@ -10,7 +10,7 @@ abstract class ITransactionRepository {
   /// Deleta uma transação específica
   Future<void> deleteTransaction(String id);
 
-  /// Método estratégico para o seu MVP: Filtro mensal para métricas e gráficos
+  /// Filtro mensal para métricas e gráficos
   Future<List<Transaction>> getTransactionsByMonth(DateTime month);
 
   /// Obtém transações filtradas por um período.

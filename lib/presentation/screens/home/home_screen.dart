@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:oriz_app/core/theme/app_colors.dart';
-import 'package:oriz_app/domain/entities/transaction.dart';
 import 'package:oriz_app/presentation/controllers/transaction_controller.dart';
+import 'package:oriz_app/presentation/screens/home/components/bottom_actions.dart';
+import 'package:oriz_app/presentation/screens/home/components/empty_state.dart';
+import 'package:oriz_app/presentation/screens/home/components/period_selector.dart';
+import 'package:oriz_app/presentation/screens/home/components/transaction_dismissible.dart';
+import 'package:oriz_app/presentation/screens/new_transaction/add_transaction_screen.dart';
 import 'package:oriz_app/presentation/widgets/category_pie_chart.dart';
+
+import 'components/summary_card.dart';
 
 class HomeScreen extends StatefulWidget {
   final TransactionController controller;
@@ -17,6 +23,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _currencyFormatter = NumberFormat.simpleCurrency(locale: 'pt_BR');
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -27,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       appBar: _buildAppBar(),
       body: ListenableBuilder(
         listenable: widget.controller,
@@ -34,13 +42,41 @@ class _HomeScreenState extends State<HomeScreen> {
           if (widget.controller.isLoading) {
             return const Center(child: CircularProgressIndicator());
           }
-
           return _buildContent();
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => debugPrint('Navegar para criação'),
-        child: const Icon(Icons.add),
+
+      bottomNavigationBar: BottomActions(
+        onScrollToTop: _scrollToTop,
+        onSortPressed: _showSortMenu,
+        onAddPressed: _navigateToNewTransaction,
+      ),
+    );
+  }
+
+  void _scrollToTop() {
+    _scrollController.animateTo(
+      0,
+      duration: const Duration(milliseconds: 600),
+      curve: Curves.easeOutCubic,
+    );
+  }
+
+  void _showSortMenu() {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (_) => SortBottomSheet(controller: widget.controller),
+    );
+  }
+
+  void _navigateToNewTransaction() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => AddTransactionScreen(controller: widget.controller),
       ),
     );
   }
@@ -59,16 +95,32 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildContent() {
+    final controller = widget.controller;
+    final hasTransactions = controller.transactions.isNotEmpty;
+
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      controller: _scrollController,
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          PeriodSelector(controller: controller),
+          const SizedBox(height: 24),
+
           _buildSummarySection(),
           const SizedBox(height: 32),
-          _buildChartSection(),
+
+          if (hasTransactions)
+            _buildChartSection()
+          else
+            const EmptyChartState(),
+
           const SizedBox(height: 32),
-          _buildHistorySection(),
+
+          if (hasTransactions)
+            _buildHistorySection()
+          else
+            const EmptyHistoryState(),
         ],
       ),
     );
@@ -78,17 +130,17 @@ class _HomeScreenState extends State<HomeScreen> {
     final summary = widget.controller.summary;
     return Row(
       children: [
-        _SummaryCard(
+        SummaryCard(
           label: 'Entradas',
           value: summary?.totalIncome ?? 0,
-          color: Colors.green,
+          color: AppColors.income,
           formatter: _currencyFormatter,
         ),
         const SizedBox(width: 12),
-        _SummaryCard(
+        SummaryCard(
           label: 'Saídas',
           value: summary?.totalExpense ?? 0,
-          color: Colors.red,
+          color: AppColors.expense,
           formatter: _currencyFormatter,
         ),
       ],
@@ -125,113 +177,16 @@ class _HomeScreenState extends State<HomeScreen> {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: widget.controller.transactions.length,
-          separatorBuilder: (_, __) => const Divider(height: 1),
-          itemBuilder: (context, index) {
-            final transaction = widget.controller.transactions[index];
-            return _TransactionListTile(
-              transaction: transaction,
+          separatorBuilder: (_, _) => const Divider(height: 1),
+          itemBuilder: (_, index) {
+            return TransactionDismissible(
+              transaction: widget.controller.transactions[index],
               formatter: _currencyFormatter,
+              onDelete: widget.controller.deleteTransaction,
             );
           },
         ),
       ],
-    );
-  }
-}
-
-class _SummaryCard extends StatelessWidget {
-  final String label;
-  final double value;
-  final Color color;
-  final NumberFormat formatter;
-
-  const _SummaryCard({
-    required this.label,
-    required this.value,
-    required this.color,
-    required this.formatter,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppColors.border),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.03),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              label,
-              style: const TextStyle(
-                fontSize: 13,
-                color: AppColors.textSecondary,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              formatter.format(value),
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w800,
-                color: color,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _TransactionListTile extends StatelessWidget {
-  final Transaction transaction;
-  final NumberFormat formatter;
-
-  const _TransactionListTile({
-    required this.transaction,
-    required this.formatter,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final isIncome = transaction.isIncome;
-    return ListTile(
-      contentPadding: EdgeInsets.zero,
-      leading: CircleAvatar(
-        backgroundColor: (isIncome ? Colors.green : Colors.red).withOpacity(
-          0.1,
-        ),
-        child: Icon(
-          isIncome ? Icons.arrow_upward : Icons.arrow_downward,
-          color: isIncome ? Colors.green : Colors.red,
-          size: 20,
-        ),
-      ),
-      title: Text(
-        transaction.description,
-        style: const TextStyle(fontWeight: FontWeight.w500),
-      ),
-      subtitle: Text(transaction.category.name),
-      trailing: Text(
-        formatter.format(transaction.amount),
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: isIncome ? AppColors.income : AppColors.expense,
-        ),
-      ),
     );
   }
 }

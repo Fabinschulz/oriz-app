@@ -1,12 +1,6 @@
-import '../entities/transaction.dart';
-import '../enum/transaction_category.dart';
-
-class CategoryTotal {
-  final TransactionCategory category;
-  final double totalAmount;
-
-  CategoryTotal({required this.category, required this.totalAmount});
-}
+import 'package:oriz_app/domain/entities/category_total.dart';
+import 'package:oriz_app/domain/entities/transaction.dart';
+import 'package:oriz_app/domain/enum/transaction_category.dart';
 
 class GetCategoryTotalsUseCase {
   List<CategoryTotal> call(List<Transaction> transactions) {
