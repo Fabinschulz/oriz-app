@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class AppColors {
   // Brand & Accent
   static const Color primary = Color(0xFFC70B0B); // Oriz Red
+  static const Color primaryDark = Color(0xFF9A0808);
+  static const Color primaryLight = Color(0xFFFF5C5C);
   static const Color accent = Color(0xFF4A90E2);
 
   // Semantic

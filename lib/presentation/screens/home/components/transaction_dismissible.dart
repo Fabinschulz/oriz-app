@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:oriz_app/core/theme/app_colors.dart';
 import 'package:oriz_app/domain/entities/transaction.dart';
-import 'package:oriz_app/presentation/screens/home/components/transaction_listtile.dart';
+import 'package:oriz_app/presentation/screens/home/components/transaction_tile.dart';
 
 /// Widget que representa uma transação que pode ser removida com um gesto de deslizar.
 class TransactionDismissible extends StatelessWidget {
@@ -29,7 +29,7 @@ class TransactionDismissible extends StatelessWidget {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('${transaction.description} removido'),
-            backgroundColor: AppColors.textPrimary,
+            backgroundColor: AppColors.primaryDark,
             duration: const Duration(seconds: 2),
           ),
         );
@@ -43,10 +43,7 @@ class TransactionDismissible extends StatelessWidget {
         ),
         child: const Icon(Icons.delete_sweep_rounded, color: AppColors.primary),
       ),
-      child: TransactionListTile(
-        transaction: transaction,
-        formatter: formatter,
-      ),
+      child: TransactionTile(transaction: transaction, formatter: formatter),
     );
   }
 

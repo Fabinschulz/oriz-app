@@ -187,22 +187,32 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildHistorySection() {
+    final transactions = widget.controller.transactions;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Histórico de Transações',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'Histórico de Transações',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            // TextButton(onPressed: () {}, child: const Text('Ver tudo')),
+          ],
         ),
-        const SizedBox(height: 10),
-        ListView.separated(
+        const SizedBox(height: 8),
+        ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: widget.controller.transactions.length,
-          separatorBuilder: (_, _) => const Divider(height: 1),
+          itemCount: transactions.length,
           itemBuilder: (_, index) {
+            final transaction = transactions[index];
+
+            // Envolvemos o novo TransactionTile com o Dismissible que você já tem
             return TransactionDismissible(
-              transaction: widget.controller.transactions[index],
+              transaction: transaction,
               formatter: _currencyFormatter,
               onDelete: widget.controller.deleteTransaction,
             );
