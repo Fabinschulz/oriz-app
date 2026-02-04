@@ -19,10 +19,16 @@ extension TransactionCategoryExtension on TransactionCategory {
         return AppColors.income;
       case TransactionCategory.escolaParticular:
         return AppColors.education;
-      case TransactionCategory.luz:
+      case TransactionCategory.contaDeluz:
         return AppColors.utility;
+      case TransactionCategory.contaDeAgua:
+        return AppColors.water;
       case TransactionCategory.aluguel:
         return AppColors.rent;
+      case TransactionCategory.telefone:
+        return AppColors.phone;
+      case TransactionCategory.cartaoDeCredito:
+        return AppColors.creditCard;
       case TransactionCategory.shopping:
         return AppColors.leisure;
       case TransactionCategory.natacao:
@@ -62,10 +68,16 @@ extension TransactionCategoryExtension on TransactionCategory {
         return Icons.payments_rounded;
       case TransactionCategory.escolaParticular:
         return Icons.school_rounded;
-      case TransactionCategory.luz:
+      case TransactionCategory.contaDeluz:
         return Icons.lightbulb_outline_rounded;
+      case TransactionCategory.contaDeAgua:
+        return Icons.water_rounded;
       case TransactionCategory.aluguel:
         return Icons.home_work_rounded;
+      case TransactionCategory.telefone:
+        return Icons.phone_rounded;
+      case TransactionCategory.cartaoDeCredito:
+        return Icons.credit_card_rounded;
       case TransactionCategory.shopping:
         return Icons.local_mall_rounded;
       case TransactionCategory.natacao:
@@ -105,10 +117,16 @@ extension TransactionCategoryExtension on TransactionCategory {
         return 'Salário';
       case TransactionCategory.escolaParticular:
         return 'Educação';
-      case TransactionCategory.luz:
+      case TransactionCategory.contaDeluz:
         return 'Luz/Energia';
+      case TransactionCategory.contaDeAgua:
+        return 'Água';
       case TransactionCategory.aluguel:
         return 'Aluguel';
+      case TransactionCategory.telefone:
+        return 'Telefone/Celular';
+      case TransactionCategory.cartaoDeCredito:
+        return 'Cartão de Crédito';
       case TransactionCategory.shopping:
         return 'Shopping';
       case TransactionCategory.natacao:

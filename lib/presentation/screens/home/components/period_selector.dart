@@ -10,6 +10,16 @@ class PeriodSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final now = DateTime.now();
+
+    final isCurrentMonth =
+        controller.selectedDate.year == now.year &&
+        controller.selectedDate.month == now.month;
+
+    final nextButtonColor = isCurrentMonth
+        ? Colors.grey[400]
+        : AppColors.primary;
+
     final dateText = DateFormat(
       'MMMM yyyy',
       'pt_BR',
@@ -35,19 +45,23 @@ class PeriodSelector extends StatelessWidget {
               controller.updateSelectedDate(previousDateTime);
             },
           ),
+
           Text(
             dateText.toUpperCase(),
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
           ),
+
           IconButton(
-            icon: const Icon(Icons.chevron_right, color: AppColors.primary),
-            onPressed: () {
-              final nextDateTime = DateTime(
-                controller.selectedDate.year,
-                controller.selectedDate.month + 1,
-              );
-              controller.updateSelectedDate(nextDateTime);
-            },
+            icon: Icon(Icons.chevron_right, color: nextButtonColor),
+            onPressed: isCurrentMonth
+                ? null
+                : () {
+                    final nextDateTime = DateTime(
+                      controller.selectedDate.year,
+                      controller.selectedDate.month + 1,
+                    );
+                    controller.updateSelectedDate(nextDateTime);
+                  },
           ),
         ],
       ),

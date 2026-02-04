@@ -8,6 +8,7 @@ class AppColors {
   // Semantic
   static const Color income = Color(0xFF2E7D32); // Verde Esmeralda fechado
   static const Color expense = Color(0xFFD32F2F);
+  static const Color balance = Color(0xFF1A237E);
 
   // --- Paleta de Categorias Atualizada ---
   static const Color food = Color(0xFFFF9800); // Mercado (Laranja vibrante)
@@ -25,6 +26,13 @@ class AppColors {
   static const Color utility = Color(
     0xFFFBC02D,
   ); // Luz (Amarelo Âmbar - menos "neon")
+
+  static const Color water = Color(0xFF03A9F4); // Água (Azul Claro)
+  static const Color phone = Color(0xFF4DB6AC); // Telefone (Azul Vivo)
+  static const Color creditCard = Color(
+    0xFF8E24AA,
+  ); // Cartão de Crédito (Roxo Vivo)
+
   static const Color rent = Color(
     0xFF455A64,
   ); // Aluguel (Azul Acinzentado - estabilidade)

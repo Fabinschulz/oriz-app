@@ -21,7 +21,7 @@ class BottomActions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.fromLTRB(24, 0, 24, 30),
-      height: 70,
+      height: 55,
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.9),
         borderRadius: BorderRadius.circular(25),
@@ -43,7 +43,7 @@ class BottomActions extends StatelessWidget {
                 child: IconButton(
                   icon: const Icon(
                     Icons.filter_list_alt,
-                    color: Color(0xFF5D6A78),
+                    color: AppColors.textSecondary,
                     size: 28,
                   ),
                   onPressed: onSortPressed,
@@ -52,26 +52,10 @@ class BottomActions extends StatelessWidget {
 
               GestureDetector(
                 onTap: onAddPressed,
-                child: Container(
-                  width: 54,
-                  height: 54,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    border: Border.all(color: AppColors.primary, width: 1.5),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.textSecondary.withValues(alpha: 0.1),
-                        blurRadius: 10,
-                        spreadRadius: 1,
-                      ),
-                    ],
-                  ),
-                  child: const Icon(
-                    Icons.add_rounded,
-                    color: AppColors.primary,
-                    size: 35,
-                  ),
+                child: const Icon(
+                  Icons.add_home_work_outlined,
+                  color: AppColors.textSecondary,
+                  size: 28,
                 ),
               ),
 
@@ -79,7 +63,7 @@ class BottomActions extends StatelessWidget {
                 child: IconButton(
                   icon: const Icon(
                     Icons.arrow_upward,
-                    color: Color(0xFF5D6A78),
+                    color: AppColors.textSecondary,
                     size: 28,
                   ),
                   onPressed: onScrollToTop,
@@ -93,6 +77,7 @@ class BottomActions extends StatelessWidget {
   }
 }
 
+/// Bottom usado para ordenar as transações
 class SortBottomSheet extends StatelessWidget {
   final TransactionController controller;
 

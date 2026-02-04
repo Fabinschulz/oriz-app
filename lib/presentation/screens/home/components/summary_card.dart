@@ -7,6 +7,8 @@ class SummaryCard extends StatelessWidget {
   final double value;
   final Color color;
   final NumberFormat formatter;
+  final IconData? icon;
+  final bool isMain;
 
   const SummaryCard({
     super.key,
@@ -14,47 +16,76 @@ class SummaryCard extends StatelessWidget {
     required this.value,
     required this.color,
     required this.formatter,
+    this.icon,
+    this.isMain = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppColors.border),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.03),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
+    return Container(
+      padding: EdgeInsets.all(isMain ? 18 : 16),
+      decoration: BoxDecoration(
+        color: isMain ? AppColors.primary : AppColors.surface,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: isMain ? Colors.transparent : AppColors.border,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              label,
-              style: const TextStyle(
-                fontSize: 13,
-                color: AppColors.textSecondary,
-                fontWeight: FontWeight.w500,
-              ),
+        boxShadow: [
+          BoxShadow(
+            color: (isMain ? AppColors.primary : Colors.black).withValues(
+              alpha: 0.08,
             ),
-            const SizedBox(height: 8),
-            Text(
-              formatter.format(value),
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w800,
-                color: color,
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          if (icon != null) ...[
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: (isMain ? Colors.white : color).withValues(alpha: 0.15),
+                shape: BoxShape.circle,
               ),
+              child: Icon(icon, color: isMain ? Colors.white : color, size: 20),
             ),
+            const SizedBox(width: 12),
           ],
-        ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: isMain
+                        ? Colors.white.withValues(alpha: 0.7)
+                        : AppColors.textSecondary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 4),
+
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    formatter.format(value),
+                    style: TextStyle(
+                      fontSize: isMain ? 24 : 16,
+                      fontWeight: FontWeight.w900,
+                      color: isMain ? Colors.white : color,
+                      letterSpacing: -0.5,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

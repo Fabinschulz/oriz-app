@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Necessário para TextInputFormatter
 import 'package:oriz_app/core/extensions/transaction_category_extension.dart';
 import 'package:oriz_app/core/theme/app_colors.dart';
+import 'package:oriz_app/core/utils/currency_input.dart';
 import 'package:oriz_app/domain/entities/transaction.dart';
 import 'package:oriz_app/domain/enum/transaction_category.dart';
 import 'package:oriz_app/domain/enum/transaction_type.dart';
@@ -15,7 +17,6 @@ class AddTransactionScreen extends StatefulWidget {
   State<AddTransactionScreen> createState() => _AddTransactionScreenState();
 }
 
-/// Screen para adicionar uma nova transação
 class _AddTransactionScreenState extends State<AddTransactionScreen> {
   final _formKey = GlobalKey<FormState>();
   final _descriptionController = TextEditingController();
@@ -31,12 +32,26 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     super.dispose();
   }
 
+  double _parseCurrencyToDouble(String text) {
+    String onlyDigits = text.replaceAll(RegExp(r'[^\d]'), '');
+    return (double.tryParse(onlyDigits) ?? 0.0) / 100;
+  }
+
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
+      final double amount = _parseCurrencyToDouble(_amountController.text);
+
+      if (amount <= 0) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('O valor deve ser maior que zero')),
+        );
+        return;
+      }
+
       final newTransaction = Transaction(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         description: _descriptionController.text,
-        amount: double.parse(_amountController.text.replaceAll(',', '.')),
+        amount: amount,
         date: DateTime.now(),
         type: _selectedType,
         category: _selectedCategory,
@@ -96,21 +111,25 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
               TextFormField(
                 controller: _amountController,
-                keyboardType: const TextInputType.numberWithOptions(
-                  decimal: true,
-                ),
+                keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.done,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  CurrencyInputFormatter(),
+                ],
                 decoration: const InputDecoration(
                   labelText: 'Valor',
-                  prefixText: 'R\$ ',
+                  hintText: 'R\$ 0,00',
                   border: OutlineInputBorder(),
                 ),
-                validator: (value) =>
-                    value == null ||
-                        double.tryParse(value.replaceAll(',', '.')) == null
-                    ? 'Valor inválido'
-                    : null,
+                validator: (value) {
+                  if (value == null || value.isEmpty) return 'Informe o valor';
+                  final double amount = _parseCurrencyToDouble(value);
+                  if (amount <= 0) return 'Valor inválido';
+                  return null;
+                },
               ),
+
               const SizedBox(height: 16),
 
               DropdownButtonFormField<TransactionCategory>(

@@ -128,20 +128,42 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildSummarySection() {
     final summary = widget.controller.summary;
-    return Row(
+
+    return Column(
       children: [
         SummaryCard(
-          label: 'Entradas',
-          value: summary?.totalIncome ?? 0,
-          color: AppColors.income,
+          label: 'Saldo Disponível',
+          value: summary.balance,
+          color: summary.balance < 0 ? AppColors.expense : AppColors.balance,
           formatter: _currencyFormatter,
+          isMain: true,
+          icon: Icons.account_balance_wallet_rounded,
         ),
-        const SizedBox(width: 12),
-        SummaryCard(
-          label: 'Saídas',
-          value: summary?.totalExpense ?? 0,
-          color: AppColors.expense,
-          formatter: _currencyFormatter,
+
+        const SizedBox(height: 16),
+
+        Row(
+          children: [
+            Expanded(
+              child: SummaryCard(
+                label: 'Receitas',
+                value: summary.totalIncome,
+                color: AppColors.income,
+                formatter: _currencyFormatter,
+                icon: Icons.arrow_upward_rounded,
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: SummaryCard(
+                label: 'Despesas',
+                value: summary.totalExpense,
+                color: AppColors.expense,
+                formatter: _currencyFormatter,
+                icon: Icons.arrow_downward_rounded,
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -158,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
         const SizedBox(height: 16),
         CategoryPieChart(
           categoryTotals: widget.controller.categoryTotals,
-          totalExpenses: widget.controller.summary?.totalExpense ?? 0,
+          totalExpenses: widget.controller.summary.totalExpense,
         ),
       ],
     );

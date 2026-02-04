@@ -6,11 +6,11 @@ import 'package:oriz_app/persistence/database/db_config.dart';
 import 'package:sqflite/sqflite.dart' as sqflite;
 
 class SqfliteTransactionRepository implements ITransactionRepository {
-  final _dbHelper = DatabaseConfig.instance;
+  final _db = DatabaseConfig.instance;
 
   @override
   Future<void> saveTransaction(Transaction transaction) async {
-    final db = await _dbHelper.database;
+    final db = await _db.database;
     await db.insert('transactions', {
       'id': transaction.id,
       'description': transaction.description,
@@ -23,7 +23,7 @@ class SqfliteTransactionRepository implements ITransactionRepository {
 
   @override
   Future<List<Transaction>> getTransactions() async {
-    final db = await _dbHelper.database;
+    final db = await _db.database;
     final List<Map<String, dynamic>> maps = await db.query(
       'transactions',
       orderBy: 'date DESC',
@@ -34,7 +34,7 @@ class SqfliteTransactionRepository implements ITransactionRepository {
 
   @override
   Future<void> deleteTransaction(String id) async {
-    final db = await _dbHelper.database;
+    final db = await _db.database;
     await db.delete('transactions', where: 'id = ?', whereArgs: [id]);
   }
 
@@ -51,7 +51,7 @@ class SqfliteTransactionRepository implements ITransactionRepository {
     DateTime start,
     DateTime end,
   ) async {
-    final db = await _dbHelper.database;
+    final db = await _db.database;
     final maps = await db.query(
       'transactions',
       where: 'date BETWEEN ? AND ?',
