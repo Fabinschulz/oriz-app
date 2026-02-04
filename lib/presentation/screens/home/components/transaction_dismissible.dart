@@ -28,7 +28,7 @@ class TransactionDismissible extends StatelessWidget {
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('${transaction.description} removido'),
+            content: Text('${transaction.description} removido com sucesso!'),
             backgroundColor: AppColors.primaryDark,
             duration: const Duration(seconds: 2),
           ),
