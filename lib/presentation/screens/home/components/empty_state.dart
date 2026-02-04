@@ -38,6 +38,7 @@ class EmptyChartState extends StatelessWidget {
   }
 }
 
+/// Estado vazio para o histórico de transações
 class EmptyHistoryState extends StatelessWidget {
   const EmptyHistoryState({super.key});
 

@@ -209,8 +209,6 @@ class _HomeScreenState extends State<HomeScreen> {
           itemCount: transactions.length,
           itemBuilder: (_, index) {
             final transaction = transactions[index];
-
-            // Envolvemos o novo TransactionTile com o Dismissible que você já tem
             return TransactionDismissible(
               transaction: transaction,
               formatter: _currencyFormatter,

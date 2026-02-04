@@ -11,6 +11,12 @@ Este projeto foi construído seguindo os mais altos padrões de desenvolvimento 
 * **Princípios:** SOLID, DRY (Don't Repeat Yourself) e KISS (Keep It Simple, Stupid).
 * **UI/UX:** Material 3 com design responsivo.
 
+## Destaques da Implementação
+
+* **UI Customizada:** Componentes como `SummaryCard` e `TransactionTile` foram desenvolvidos do zero para garantir um visual moderno e arredondado.
+* **Extensibilidade:** O uso de `Extensions` em Enums permite que novas categorias sejam adicionadas com apenas uma linha de código, mantendo ícones e cores centralizados.
+* **Performance:** UI reativa utilizando `ListenableBuilder`, garantindo que apenas os widgets necessários sejam reconstruídos.
+
 ## Estrutura do Projeto
 A organização de pastas segue a lógica de camadas para facilitar a manutenção e escalabilidade:
 
@@ -39,3 +45,21 @@ lib/
 2. Clone o repositório.
 3. Execute `flutter pub get` para instalar as dependências.
 4. Rode o projeto com `flutter run`.
+
+## Visual do Projeto
+
+### Demo
+
+<p align="center">
+  <img src="assets/dashbord-flow.gif" width="320" alt="Demonstração do Fluxo Oriz" />
+</p>
+
+---
+
+### Interface
+
+<p align="center">
+  <img src="assets/dashboard.png" width="30%" alt="Dashboard Principal" />
+</p>
+
+> **Nota:** O app utiliza o conceito de Neumorfismo suave e cores semânticas para facilitar a leitura rápida de gastos.
