@@ -64,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _showSortMenu() {
     showModalBottomSheet(
+      scrollControlDisabledMaxHeightRatio: MediaQuery.of(context).size.height,
       context: context,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
