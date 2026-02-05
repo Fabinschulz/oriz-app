@@ -75,7 +75,7 @@ class SummaryCard extends StatelessWidget {
                   child: Text(
                     formatter.format(value),
                     style: TextStyle(
-                      fontSize: isMain ? 24 : 16,
+                      fontSize: isMain ? 20 : 14,
                       fontWeight: FontWeight.w900,
                       color: isMain ? Colors.white : color,
                       letterSpacing: -0.5,

@@ -55,7 +55,7 @@ class TransactionTile extends StatelessWidget {
                   transaction.description,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 15,
+                    fontSize: 14,
                     color: AppColors.textPrimary,
                   ),
                   maxLines: 1,
@@ -65,7 +65,7 @@ class TransactionTile extends StatelessWidget {
                   transaction.category.name,
                   style: const TextStyle(
                     color: AppColors.textSecondary,
-                    fontSize: 13,
+                    fontSize: 12,
                   ),
                 ),
               ],

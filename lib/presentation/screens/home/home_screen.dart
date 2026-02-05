@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -6,6 +9,7 @@ import 'package:oriz_app/presentation/controllers/transaction_controller.dart';
 import 'package:oriz_app/presentation/screens/home/components/bottom_actions.dart';
 import 'package:oriz_app/presentation/screens/home/components/empty_state.dart';
 import 'package:oriz_app/presentation/screens/home/components/period_selector.dart';
+import 'package:oriz_app/presentation/screens/home/components/sort_bottom_sheet.dart';
 import 'package:oriz_app/presentation/screens/home/components/transaction_dismissible.dart';
 import 'package:oriz_app/presentation/screens/new_transaction/new_transaction_screen.dart';
 import 'package:oriz_app/presentation/widgets/category_pie_chart.dart';
@@ -24,6 +28,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final _currencyFormatter = NumberFormat.simpleCurrency(locale: 'pt_BR');
   final ScrollController _scrollController = ScrollController();
+  final isIOS = Platform.isIOS;
 
   @override
   void initState() {
@@ -35,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      appBar: _buildAppBar(),
+      appBar: isIOS ? _buildAppBarIOS() : _buildAppBarAndroid(),
       body: ListenableBuilder(
         listenable: widget.controller,
         builder: (context, _) {
@@ -82,7 +87,21 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  PreferredSizeWidget _buildAppBar() {
+  CupertinoNavigationBar _buildAppBarIOS() {
+    return CupertinoNavigationBar(
+      middle: const Text(
+        'Dashboard',
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        ),
+      ),
+      backgroundColor: AppColors.primary,
+    );
+  }
+
+  PreferredSizeWidget _buildAppBarAndroid() {
     return AppBar(
       systemOverlayStyle: SystemUiOverlayStyle.light,
       title: const Text(

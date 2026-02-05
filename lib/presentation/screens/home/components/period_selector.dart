@@ -48,7 +48,7 @@ class PeriodSelector extends StatelessWidget {
 
           Text(
             dateText.toUpperCase(),
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
           ),
 
           IconButton(
