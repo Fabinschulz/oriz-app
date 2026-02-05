@@ -25,7 +25,11 @@ void main() async {
   runApp(
     MaterialApp(
       title: 'Oriz - Gestão Financeira',
-      theme: ThemeData(useMaterial3: true, colorSchemeSeed: AppColors.primary),
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: AppColors.primary,
+        fontFamily: 'Inter',
+      ),
       home: HomeScreen(controller: controller),
     ),
   );

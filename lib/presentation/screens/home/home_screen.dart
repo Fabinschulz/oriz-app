@@ -7,7 +7,7 @@ import 'package:oriz_app/presentation/screens/home/components/bottom_actions.dar
 import 'package:oriz_app/presentation/screens/home/components/empty_state.dart';
 import 'package:oriz_app/presentation/screens/home/components/period_selector.dart';
 import 'package:oriz_app/presentation/screens/home/components/transaction_dismissible.dart';
-import 'package:oriz_app/presentation/screens/new_transaction/add_transaction_screen.dart';
+import 'package:oriz_app/presentation/screens/new_transaction/new_transaction_screen.dart';
 import 'package:oriz_app/presentation/widgets/category_pie_chart.dart';
 
 import 'components/summary_card.dart';

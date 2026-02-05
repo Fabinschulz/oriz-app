@@ -51,7 +51,7 @@ lib/
 ### Demo
 
 <p align="center">
-  <img src="assets/dashbord-flow.gif" width="320" alt="Demonstração do Fluxo Oriz" />
+  <img src="assets/images/dashbord-flow.gif" width="320" alt="Demonstração do Fluxo Oriz" />
 </p>
 
 ---
@@ -59,7 +59,7 @@ lib/
 ### Interface
 
 <p align="center">
-  <img src="assets/dashboard.png" width="30%" alt="Dashboard Principal" />
+  <img src="assets/images/dashboard.png" width="30%" alt="Dashboard Principal" />
 </p>
 
 > **Nota:** O app utiliza o conceito de Neumorfismo suave e cores semânticas para facilitar a leitura rápida de gastos.

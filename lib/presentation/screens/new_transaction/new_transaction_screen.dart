@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Necessário para TextInputFormatter
 import 'package:oriz_app/core/extensions/transaction_category_extension.dart';
@@ -49,7 +51,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       }
 
       final newTransaction = Transaction(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        id: Random().nextDouble().toString(),
         description: _descriptionController.text,
         amount: amount,
         date: DateTime.now(),
@@ -145,7 +147,13 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       children: [
                         Icon(cat.icon, size: 22, color: cat.color),
                         const SizedBox(width: 10),
-                        Text(cat.name, style: const TextStyle(fontSize: 15)),
+                        Text(
+                          cat.name,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ],
                     ),
                   );
