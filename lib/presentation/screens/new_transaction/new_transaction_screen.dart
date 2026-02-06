@@ -11,15 +11,15 @@ import 'package:oriz_app/domain/enum/transaction_category.dart';
 import 'package:oriz_app/domain/enum/transaction_type.dart';
 import 'package:oriz_app/presentation/controllers/transaction_controller.dart';
 
-class AddTransactionScreen extends StatefulWidget {
+class NewTransactionScreen extends StatefulWidget {
   final TransactionController controller;
-  const AddTransactionScreen({super.key, required this.controller});
+  const NewTransactionScreen({super.key, required this.controller});
 
   @override
-  State<AddTransactionScreen> createState() => _AddTransactionScreenState();
+  State<NewTransactionScreen> createState() => _NewTransactionScreenState();
 }
 
-class _AddTransactionScreenState extends State<AddTransactionScreen> {
+class _NewTransactionScreenState extends State<NewTransactionScreen> {
   final _formKey = GlobalKey<FormState>();
   final _descriptionController = TextEditingController();
   final _amountController = TextEditingController();
@@ -58,9 +58,9 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
   @override
   Widget build(BuildContext context) =>
-      isIOS ? _buildCupertinoIOS() : _buildMaterialAndroid();
+      isIOS ? _createCupertinoIOSWidget() : _buildAndroidMaterialWidget();
 
-  Widget _buildMaterialAndroid() {
+  Widget _buildAndroidMaterialWidget() {
     return Scaffold(
       appBar: AppBar(title: const Text('Nova Transação'), centerTitle: true),
       body: SingleChildScrollView(
@@ -98,7 +98,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     );
   }
 
-  Widget _buildCupertinoIOS() {
+  Widget _createCupertinoIOSWidget() {
     return CupertinoPageScaffold(
       backgroundColor: CupertinoColors.systemGroupedBackground,
       navigationBar: const CupertinoNavigationBar(
@@ -169,60 +169,65 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   Widget _buildTypeSelector() {
     return SizedBox(
       width: double.infinity,
-      child: isIOS
-          ? CupertinoSlidingSegmentedControl<TransactionType>(
-              groupValue: _selectedType,
-              children: const {
-                TransactionType.expense: Text(
-                  'Saída',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: CupertinoColors.black,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-                TransactionType.income: Text(
-                  'Entrada',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: CupertinoColors.black,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-              },
-              onValueChanged: (v) => setState(() => _selectedType = v!),
-            )
-          : SegmentedButton<TransactionType>(
-              segments: const [
-                ButtonSegment(
-                  value: TransactionType.expense,
-                  label: Text(
-                    'Saída',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: CupertinoColors.black,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                  icon: Icon(Icons.remove_circle_outline),
-                ),
-                ButtonSegment(
-                  value: TransactionType.income,
-                  label: Text(
-                    'Entrada',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: CupertinoColors.black,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                  icon: Icon(Icons.add_circle_outline),
-                ),
-              ],
-              selected: {_selectedType},
-              onSelectionChanged: (v) =>
-                  setState(() => _selectedType = v.first),
+      child: isIOS ? _selectTransactTypeIOS() : _selectTransactTypeAndroid(),
+    );
+  }
+
+  SegmentedButton<TransactionType> _selectTransactTypeAndroid() {
+    return SegmentedButton<TransactionType>(
+      segments: const [
+        ButtonSegment(
+          value: TransactionType.expense,
+          label: Text(
+            'Saída',
+            style: TextStyle(
+              fontSize: 14,
+              color: CupertinoColors.black,
+              decoration: TextDecoration.none,
             ),
+          ),
+          icon: Icon(Icons.remove_circle_outline),
+        ),
+        ButtonSegment(
+          value: TransactionType.income,
+          label: Text(
+            'Entrada',
+            style: TextStyle(
+              fontSize: 14,
+              color: CupertinoColors.black,
+              decoration: TextDecoration.none,
+            ),
+          ),
+          icon: Icon(Icons.add_circle_outline),
+        ),
+      ],
+      selected: {_selectedType},
+      onSelectionChanged: (v) => setState(() => _selectedType = v.first),
+    );
+  }
+
+  CupertinoSlidingSegmentedControl<TransactionType> _selectTransactTypeIOS() {
+    return CupertinoSlidingSegmentedControl<TransactionType>(
+      groupValue: _selectedType,
+      children: const {
+        TransactionType.expense: Text(
+          'Saída',
+          style: TextStyle(
+            fontSize: 14,
+            color: CupertinoColors.black,
+            decoration: TextDecoration.none,
+          ),
+        ),
+        TransactionType.income: Text(
+          'Entrada',
+          style: TextStyle(
+            fontSize: 14,
+            color: CupertinoColors.black,
+            decoration: TextDecoration.none,
+          ),
+        ),
+      },
+      onValueChanged: (v) => setState(() => _selectedType = v!),
     );
   }
 

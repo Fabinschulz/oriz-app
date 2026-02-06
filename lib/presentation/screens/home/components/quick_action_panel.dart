@@ -5,12 +5,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oriz_app/core/theme/app_colors.dart';
 
-class BottomActions extends StatelessWidget {
+class QuickActionPanel extends StatelessWidget {
   final VoidCallback onScrollToTop;
   final VoidCallback onSortPressed;
   final VoidCallback onAddPressed;
 
-  const BottomActions({
+  const QuickActionPanel({
     super.key,
     required this.onScrollToTop,
     required this.onSortPressed,

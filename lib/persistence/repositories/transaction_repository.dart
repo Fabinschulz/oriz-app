@@ -5,7 +5,7 @@ import 'package:oriz_app/domain/enum/transaction_type.dart';
 import 'package:oriz_app/persistence/database/db_config.dart';
 import 'package:sqflite/sqflite.dart' as sqflite;
 
-class SqfliteTransactionRepository implements ITransactionRepository {
+class TransactionRepository implements ITransactionRepository {
   final _db = DatabaseConfig.instance;
 
   @override

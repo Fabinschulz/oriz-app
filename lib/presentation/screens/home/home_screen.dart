@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:oriz_app/core/theme/app_colors.dart';
+import 'package:oriz_app/core/utils/app_routes.dart';
 import 'package:oriz_app/presentation/controllers/transaction_controller.dart';
-import 'package:oriz_app/presentation/screens/home/components/bottom_actions.dart';
 import 'package:oriz_app/presentation/screens/home/components/empty_state.dart';
 import 'package:oriz_app/presentation/screens/home/components/period_selector.dart';
+import 'package:oriz_app/presentation/screens/home/components/quick_action_panel.dart';
 import 'package:oriz_app/presentation/screens/home/components/sort_bottom_sheet.dart';
 import 'package:oriz_app/presentation/screens/home/components/transaction_dismissible.dart';
-import 'package:oriz_app/presentation/screens/new_transaction/new_transaction_screen.dart';
 import 'package:oriz_app/presentation/widgets/category_pie_chart.dart';
 
 import 'components/summary_card.dart';
@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
 
-      bottomNavigationBar: BottomActions(
+      bottomNavigationBar: QuickActionPanel(
         onScrollToTop: _scrollToTop,
         onSortPressed: _showSortMenu,
         onAddPressed: _navigateToNewTransaction,
@@ -78,14 +78,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _navigateToNewTransaction() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => AddTransactionScreen(controller: widget.controller),
-      ),
-    );
-  }
+  void _navigateToNewTransaction() =>
+      Navigator.of(context).pushNamed(APP_ROUTES.NEW_TRANSACTIONS);
 
   CupertinoNavigationBar _buildAppBarIOS() {
     return CupertinoNavigationBar(
