@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:oriz_app/core/extensions/transaction_category_extension.dart';
-import 'package:oriz_app/core/theme/app_colors.dart';
-import 'package:oriz_app/domain/entities/transaction.dart';
+import 'package:oriz/core/extensions/transaction_category_extension.dart';
+import 'package:oriz/core/theme/app_colors.dart';
+import 'package:oriz/domain/entities/transaction.dart';
 
 class TransactionTile extends StatelessWidget {
   final Transaction transaction;

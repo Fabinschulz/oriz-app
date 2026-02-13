@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:oriz_app/core/theme/app_colors.dart';
-import 'package:oriz_app/presentation/controllers/transaction_controller.dart';
+import 'package:oriz/core/theme/app_colors.dart';
+import 'package:oriz/presentation/controllers/transaction_controller.dart';
 
 class PeriodSelector extends StatelessWidget {
   final TransactionController controller;

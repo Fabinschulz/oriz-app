@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:oriz_app/core/theme/app_colors.dart';
-import 'package:oriz_app/domain/enum/transaction_category.dart';
+import 'package:oriz/core/theme/app_colors.dart';
+import 'package:oriz/domain/enum/transaction_category.dart';
 
 extension TransactionCategoryExtension on TransactionCategory {
   Color get color {

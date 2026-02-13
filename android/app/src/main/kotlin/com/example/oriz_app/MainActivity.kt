@@ -1,4 +1,4 @@
-package com.example.oriz_app
+package com.example.oriz
 
 import io.flutter.embedding.android.FlutterActivity
 

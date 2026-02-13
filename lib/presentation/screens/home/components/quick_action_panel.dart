@@ -3,7 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:oriz_app/core/theme/app_colors.dart';
+import 'package:oriz/core/theme/app_colors.dart';
 
 class QuickActionPanel extends StatelessWidget {
   final VoidCallback onScrollToTop;

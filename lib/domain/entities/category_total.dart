@@ -1,4 +1,4 @@
-import 'package:oriz_app/domain/enum/transaction_category.dart';
+import 'package:oriz/domain/enum/transaction_category.dart';
 
 class CategoryTotal {
   final TransactionCategory category;

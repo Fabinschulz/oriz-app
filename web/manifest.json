@@ -1,6 +1,6 @@
 {
-    "name": "oriz_app",
-    "short_name": "oriz_app",
+    "name": "oriz",
+    "short_name": "oriz",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

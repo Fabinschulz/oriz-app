@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:oriz_app/core/extensions/transaction_category_extension.dart';
-import 'package:oriz_app/core/theme/app_colors.dart';
-import 'package:oriz_app/core/utils/currency_input.dart';
-import 'package:oriz_app/domain/entities/transaction.dart';
-import 'package:oriz_app/domain/enum/transaction_category.dart';
-import 'package:oriz_app/domain/enum/transaction_type.dart';
-import 'package:oriz_app/presentation/controllers/transaction_controller.dart';
+import 'package:oriz/core/extensions/transaction_category_extension.dart';
+import 'package:oriz/core/theme/app_colors.dart';
+import 'package:oriz/core/utils/currency_input.dart';
+import 'package:oriz/domain/entities/transaction.dart';
+import 'package:oriz/domain/enum/transaction_category.dart';
+import 'package:oriz/domain/enum/transaction_type.dart';
+import 'package:oriz/presentation/controllers/transaction_controller.dart';
 
 class NewTransactionScreen extends StatefulWidget {
   final TransactionController controller;

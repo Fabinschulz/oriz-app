@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:oriz_app/core/theme/app_colors.dart';
+import 'package:oriz/core/theme/app_colors.dart';
 
 class EmptyChartState extends StatelessWidget {
   const EmptyChartState({super.key});

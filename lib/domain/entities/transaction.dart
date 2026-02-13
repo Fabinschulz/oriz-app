@@ -1,5 +1,5 @@
-import 'package:oriz_app/domain/enum/transaction_category.dart';
-import 'package:oriz_app/domain/enum/transaction_type.dart';
+import 'package:oriz/domain/enum/transaction_category.dart';
+import 'package:oriz/domain/enum/transaction_type.dart';
 
 class Transaction {
   final String id;

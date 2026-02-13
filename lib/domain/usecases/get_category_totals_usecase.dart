@@ -1,6 +1,6 @@
-import 'package:oriz_app/domain/entities/category_total.dart';
-import 'package:oriz_app/domain/entities/transaction.dart';
-import 'package:oriz_app/domain/enum/transaction_category.dart';
+import 'package:oriz/domain/entities/category_total.dart';
+import 'package:oriz/domain/entities/transaction.dart';
+import 'package:oriz/domain/enum/transaction_category.dart';
 
 class GetCategoryTotalsUseCase {
   List<CategoryTotal> call(List<Transaction> transactions) {

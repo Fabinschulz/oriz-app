@@ -4,15 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:oriz_app/core/theme/app_colors.dart';
-import 'package:oriz_app/core/utils/app_routes.dart';
-import 'package:oriz_app/presentation/controllers/transaction_controller.dart';
-import 'package:oriz_app/presentation/screens/home/components/empty_state.dart';
-import 'package:oriz_app/presentation/screens/home/components/period_selector.dart';
-import 'package:oriz_app/presentation/screens/home/components/quick_action_panel.dart';
-import 'package:oriz_app/presentation/screens/home/components/sort_bottom_sheet.dart';
-import 'package:oriz_app/presentation/screens/home/components/transaction_dismissible.dart';
-import 'package:oriz_app/presentation/widgets/category_pie_chart.dart';
+import 'package:oriz/core/theme/app_colors.dart';
+import 'package:oriz/core/utils/app_routes.dart';
+import 'package:oriz/presentation/controllers/transaction_controller.dart';
+import 'package:oriz/presentation/screens/home/components/empty_state.dart';
+import 'package:oriz/presentation/screens/home/components/period_selector.dart';
+import 'package:oriz/presentation/screens/home/components/quick_action_panel.dart';
+import 'package:oriz/presentation/screens/home/components/sort_bottom_sheet.dart';
+import 'package:oriz/presentation/screens/home/components/transaction_dismissible.dart';
+import 'package:oriz/presentation/widgets/category_pie_chart.dart';
 
 import 'components/summary_card.dart';
 

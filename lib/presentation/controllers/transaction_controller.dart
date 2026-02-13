@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:oriz_app/domain/contracts/transaction_repository.dart';
-import 'package:oriz_app/domain/entities/category_total.dart';
-import 'package:oriz_app/domain/entities/transaction.dart';
-import 'package:oriz_app/domain/enum/sort.dart';
-import 'package:oriz_app/domain/enum/transaction_category.dart';
-import 'package:oriz_app/domain/usecases/calculate_summary_usecase.dart';
-import 'package:oriz_app/domain/usecases/get_category_totals_usecase.dart';
+import 'package:oriz/domain/contracts/transaction_repository.dart';
+import 'package:oriz/domain/entities/category_total.dart';
+import 'package:oriz/domain/entities/transaction.dart';
+import 'package:oriz/domain/enum/sort.dart';
+import 'package:oriz/domain/enum/transaction_category.dart';
+import 'package:oriz/domain/usecases/calculate_summary_usecase.dart';
+import 'package:oriz/domain/usecases/get_category_totals_usecase.dart';
 
 class TransactionController extends ChangeNotifier {
   final ITransactionRepository _repository;

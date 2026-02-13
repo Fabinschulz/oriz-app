@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:oriz_app/core/theme/app_colors.dart';
-import 'package:oriz_app/domain/enum/sort.dart';
-import 'package:oriz_app/presentation/controllers/transaction_controller.dart';
+import 'package:oriz/core/theme/app_colors.dart';
+import 'package:oriz/domain/enum/sort.dart';
+import 'package:oriz/presentation/controllers/transaction_controller.dart';
 
 class SortBottomSheet extends StatelessWidget {
   final TransactionController controller;

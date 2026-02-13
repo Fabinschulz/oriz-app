@@ -1,8 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:oriz_app/core/extensions/transaction_category_extension.dart';
-import 'package:oriz_app/domain/entities/category_total.dart';
+import 'package:oriz/core/extensions/transaction_category_extension.dart';
+import 'package:oriz/domain/entities/category_total.dart';
 
 class CategoryPieChart extends StatefulWidget {
   final List<CategoryTotal> categoryTotals;

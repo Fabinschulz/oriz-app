@@ -1,8 +1,8 @@
-import 'package:oriz_app/domain/contracts/transaction_repository.dart';
-import 'package:oriz_app/domain/entities/transaction.dart';
-import 'package:oriz_app/domain/enum/transaction_category.dart';
-import 'package:oriz_app/domain/enum/transaction_type.dart';
-import 'package:oriz_app/persistence/database/db_config.dart';
+import 'package:oriz/domain/contracts/transaction_repository.dart';
+import 'package:oriz/domain/entities/transaction.dart';
+import 'package:oriz/domain/enum/transaction_category.dart';
+import 'package:oriz/domain/enum/transaction_type.dart';
+import 'package:oriz/persistence/database/db_config.dart';
 import 'package:sqflite/sqflite.dart' as sqflite;
 
 class TransactionRepository implements ITransactionRepository {

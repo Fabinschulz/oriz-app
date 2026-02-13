@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:oriz_app/core/theme/app_colors.dart';
-import 'package:oriz_app/domain/entities/transaction.dart';
-import 'package:oriz_app/presentation/screens/home/components/transaction_tile.dart';
+import 'package:oriz/core/theme/app_colors.dart';
+import 'package:oriz/domain/entities/transaction.dart';
+import 'package:oriz/presentation/screens/home/components/transaction_tile.dart';
 
 /// Widget que representa uma transação que pode ser removida com um gesto de deslizar.
 class TransactionDismissible extends StatelessWidget {
